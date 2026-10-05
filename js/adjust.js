@@ -108,13 +108,15 @@ function renderColors(container, store, hooks) {
         <button class="swatch" title="${escape(t.value)}"><input type="color" value="${normalizeHexForInput(t.value)}"></button>
         <div class="adj-main">
           <input type="text" data-k="name" value="${escape(t.name)}" placeholder="이름">
-          <input type="text" class="adj-sub" data-k="cssVar" value="${escape(t.cssVar)}" placeholder="--var">
+          <div class="adj-varline">
+            <input type="text" class="adj-sub" data-k="cssVar" value="${escape(t.cssVar)}" placeholder="--var">
+            ${contrastBadge}
+          </div>
         </div>
         <div class="row-actions">
           <button class="icon-btn" data-act="dark" title="다크 값 (${t.dark || '없음'})">🌙</button>
           <button class="icon-btn danger" data-act="del" title="삭제">✕</button>
-        </div>
-        ${contrastBadge}`;
+        </div>`;
       const colorInput = row.querySelector('input[type="color"]');
       colorInput.addEventListener('input', () => {
         store.update((pr) => { t.value = colorInput.value; }, { tag: 'adjust-value' });
@@ -151,7 +153,7 @@ function contrastBadgeHtml(fg, bg) {
   const r = contrastRatio(fg, bg);
   const g = contrastGrade(r);
   const cls = g === 'fail' ? 'badge-warn' : 'badge-ok';
-  return `<div style="position:absolute;left:34px;top:4px"><span class="badge ${cls}" title="배경 기본 대비 ${r.toFixed(2)}:1">${g} ${r.toFixed(1)}</span></div>`;
+  return `<span class="badge ${cls}" title="배경 기본 대비 ${r.toFixed(2)}:1">${g} ${r.toFixed(1)}</span>`;
 }
 
 // ---------- 타이포그래피 ----------

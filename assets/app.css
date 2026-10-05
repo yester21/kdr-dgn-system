@@ -167,7 +167,11 @@ input, select, textarea { font: inherit; color: inherit; }
   gap: 8px; padding: 7px 8px; border-radius: var(--dsg-radius-sm);
   border: 1px solid var(--dsg-border-soft); background: var(--dsg-surface-2);
   margin-bottom: 6px;
+  position: relative; /* 방어: absolute 자손이 페이지 좌측 상단으로 탈출하지 않게 */
 }
+.adj-varline { display: flex; align-items: center; gap: 6px; }
+.adj-varline input { flex: 1; min-width: 0; }
+.adj-varline .badge { flex: none; }
 .adj-row .swatch {
   width: 24px; height: 24px; border-radius: 6px; flex: none;
   border: 1px solid rgba(255,255,255,.14); cursor: pointer; padding: 0;

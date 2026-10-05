@@ -617,7 +617,7 @@ export async function extractDesignSystem(html, baseUrl, opts = {}) {
     colors: { mode, groups: colors.groups },
     typography,
     spacing, radius, shadows, layout, fonts,
-    preview: { theme: 'light', viewport: 'desktop', components: { buttons: true, inputs: true, cards: true, badges: true, alerts: true, tabs: true, accordion: true, carousel: true, forms: true, nav: true, data: true, misc: true } },
+    preview: { theme: 'light', viewport: 'desktop', components: { buttons: true, inputs: true, cards: true, badges: true, alerts: true, tabs: true, accordion: true, carousel: true, forms: true, nav: true, data: true, misc: true, cards2: true, content: true } },
     export: {
       prefix: 'ds',
       builders: { bricks: true, elementor: true, greenshift: true, divi: true, builderius: true, generic: true },

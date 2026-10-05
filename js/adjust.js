@@ -344,6 +344,7 @@ function renderComponents(container, store) {
     ['tabs', '탭'], ['accordion', '아코디언'], ['carousel', '캐러셀'],
     ['forms', '폼 컨트롤(스위치·체크·셀렉트)'], ['nav', '내비(브레드크럼·페이지네이션)'],
     ['data', '데이터(테이블·프로그레스)'], ['misc', '기타(아바타·디바이더·칩)'],
+    ['cards2', '확장 카드(아이콘 카드·이미지 카드)'], ['content', '콘텐츠 블록(통계·CTA·인용구)'],
   ];
   for (const [key, label] of items) {
     const row = document.createElement('label');

@@ -43,6 +43,30 @@ SITEUSER=$(stat -c %U "$DOCROOT")
 chown -R "$SITEUSER:$SITEUSER" "$DOCROOT"
 echo "docroot 내용:"; ls "$DOCROOT"
 
+echo "### 3.5 정적 자산 캐시 정책 (js/css는 항상 재검증 — 재배포 후 캐시 스테일 방지)"
+VHOST="/usr/local/lsws/conf/vhosts/$D/vhost.conf"
+if ! grep -q "context /js/" "$VHOST" 2>/dev/null; then
+  cat >> "$VHOST" <<'EOF'
+
+context /js/ {
+  location                $VH_ROOT/public_html/js/
+  extraHeaders            <<<END_headers
+Cache-Control: no-cache
+END_headers
+}
+
+context /assets/ {
+  location                $VH_ROOT/public_html/assets/
+  extraHeaders            <<<END_headers
+Cache-Control: no-cache
+END_headers
+}
+EOF
+  /usr/local/lsws/bin/lswsctrl restart >/dev/null 2>&1 && echo "vhost 캐시 헤더 추가 + lsws 재시작" || echo "lsws 재시작 실패(수동 확인)"
+else
+  echo "캐시 헤더 이미 있음"
+fi
+
 echo "### 4. 서버 로컬 검증"
 curl -sk "https://127.0.0.1/" -H "Host: $D" -o /dev/null -w "https(local): %{http_code}\n"
 curl -sk "https://127.0.0.1/js/app.js" -H "Host: $D" -o /dev/null -w "app.js(local): %{http_code}\n"

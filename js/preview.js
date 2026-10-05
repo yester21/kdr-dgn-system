@@ -561,6 +561,72 @@ function sectionComponents(project) {
     sec.append(g);
   }
 
+  if (c.cards2) {
+    const g = compGroup('Icon Cards · Image Cards');
+    // 아이콘 카드 — 아이콘 + 제목 + 설명문
+    g.insertAdjacentHTML('beforeend', `
+      <div class="pv-iconcard-grid">
+        <div class="pv-iconcard">
+          <div class="pv-iconcard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></div>
+          <h5>빠른 설정</h5>
+          <p>디자인 시스템을 몇 분 만에 사이트에 적용할 수 있습니다.</p>
+        </div>
+        <div class="pv-iconcard">
+          <div class="pv-iconcard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <h5>안전한 저장</h5>
+          <p>모든 토큰은 프로젝트 JSON으로 보관되고 언제든 되돌릴 수 있습니다.</p>
+        </div>
+        <div class="pv-iconcard">
+          <div class="pv-iconcard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15v3"/><path d="M11 10v8"/><path d="M15 13v5"/><path d="M19 6v12"/></svg></div>
+          <h5>성장 지표</h5>
+          <p>일관된 토큰 사용으로 유지보수 비용이 줄어듭니다.</p>
+        </div>
+      </div>
+      <div class="pv-imgcard-grid" style="margin-top:22px">
+        <div class="pv-imgcard">
+          <div class="pv-imgcard-media"><svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><rect width="400" height="300" fill="var(--p-primary-soft, #e8f0fe)"/><circle cx="315" cy="72" r="34" fill="var(--p-primary, #4c8dff)" opacity=".9"/><path d="M0 232 L110 128 L190 212 L272 138 L400 252 L400 300 L0 300 Z" fill="var(--p-primary, #4c8dff)" opacity=".22"/><path d="M0 262 L140 168 L240 242 L400 168 L400 300 L0 300 Z" fill="var(--p-primary, #4c8dff)" opacity=".42"/></svg></div>
+          <h5>산맥처럼 쌓은 기록</h5>
+          <p class="pv-imgcard-meta">여행 · 2026.09</p>
+          <p>테두리 없는 이미지 카드 형태입니다. 이미지 자체가 카드 역할을 합니다.</p>
+        </div>
+        <div class="pv-imgcard">
+          <div class="pv-imgcard-media"><svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><rect width="400" height="300" fill="var(--p-primary-soft, #e8f0fe)"/><path d="M0 150 Q 60 100 120 150 T 240 150 T 360 150 T 480 150 V300 H0 Z" fill="var(--p-primary, #4c8dff)" opacity=".3"/><path d="M0 190 Q 66 146 132 190 T 264 190 T 396 190 V300 H0 Z" fill="var(--p-primary, #4c8dff)" opacity=".5"/><circle cx="320" cy="66" r="26" fill="var(--p-primary, #4c8dff)" opacity=".85"/></svg></div>
+          <h5>물결 위의 하루</h5>
+          <p class="pv-imgcard-meta">라이프스타일 · 2026.08</p>
+          <p>이미지 영역은 SVG 플레이스홀더로, 실제 사이트에서는 썸네일로 교체됩니다.</p>
+        </div>
+        <div class="pv-imgcard">
+          <div class="pv-imgcard-media"><svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><rect width="400" height="300" fill="var(--p-primary-soft, #e8f0fe)"/><rect x="40" y="170" width="70" height="90" rx="10" fill="var(--p-primary, #4c8dff)" opacity=".35"/><rect x="130" y="120" width="70" height="140" rx="10" fill="var(--p-primary, #4c8dff)" opacity=".55"/><rect x="220" y="80" width="70" height="180" rx="10" fill="var(--p-primary, #4c8dff)" opacity=".8"/><circle cx="330" cy="70" r="22" fill="var(--p-primary, #4c8dff)" opacity=".9"/></svg></div>
+          <h5>도시의 스카이라인</h5>
+          <p class="pv-imgcard-meta">아키텍처 · 2026.07</p>
+          <p>타이틀·메타·본문 크기와 색은 모두 추출 토큰을 따릅니다.</p>
+        </div>
+      </div>`);
+    sec.append(g);
+  }
+
+  if (c.content) {
+    const g = compGroup('Stats · CTA · Quote');
+    g.insertAdjacentHTML('beforeend', `
+      <div class="pv-stats" style="margin-bottom:24px">
+        <div class="pv-stat"><div class="pv-stat-num">12<small>종</small></div><div class="pv-stat-label">컴포넌트 프리셋</div></div>
+        <div class="pv-stat"><div class="pv-stat-num">47<small>+</small></div><div class="pv-stat-label">디자인 토큰</div></div>
+        <div class="pv-stat"><div class="pv-stat-num">5<small>개</small></div><div class="pv-stat-label">빌더 내보내기</div></div>
+      </div>
+      <div class="pv-cta" style="margin-bottom:24px">
+        <div>
+          <h4>디자인 시스템을 사이트에 바로 적용하세요</h4>
+          <p>추출한 토큰을 Bricks·Elementor·GreenShift로 내보낼 수 있습니다.</p>
+        </div>
+        <button class="pv-btn pv-btn-primary">지금 시작하기</button>
+      </div>
+      <blockquote class="pv-quote">
+        <div class="pv-quote-text">추출하고 조정하고 발행까지, 한 화면에서 끝납니다. 사이트의 디자인 언어를 그대로 물려받은 토큰 세트로 일관성을 유지하세요.</div>
+        <div class="pv-quote-author"><span class="pv-avatar">디</span><span>디자인 시스템 가이드에서</span></div>
+      </blockquote>`);
+    sec.append(g);
+  }
+
   wireInteractions(sec);
   return sec;
 }

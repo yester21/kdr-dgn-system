@@ -147,6 +147,11 @@ export function normalizeProject(input) {
         misc: p.preview?.components?.misc !== false,
         cards2: p.preview?.components?.cards2 !== false,
         content: p.preview?.components?.content !== false,
+        overlay: p.preview?.components?.overlay !== false,
+        pricing: p.preview?.components?.pricing !== false,
+        flow: p.preview?.components?.flow !== false,
+        misc2: p.preview?.components?.misc2 !== false,
+        header: p.preview?.components?.header !== false,
       },
     },
     export: {

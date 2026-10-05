@@ -102,7 +102,7 @@ export const SAMPLE_PROJECT = {
   fonts: [
     { family: 'Pretendard Variable', weights: [400, 500, 700, 800], source: 'google', cssUrl: 'https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css' },
   ],
-  preview: { theme: 'light', viewport: 'desktop', components: { buttons: true, inputs: true, cards: true, badges: true, alerts: true, tabs: true, accordion: true, carousel: true, forms: true, nav: true, data: true, misc: true, cards2: true, content: true } },
+  preview: { theme: 'light', viewport: 'desktop', components: { buttons: true, inputs: true, cards: true, badges: true, alerts: true, tabs: true, accordion: true, carousel: true, forms: true, nav: true, data: true, misc: true, cards2: true, content: true, overlay: true, pricing: true, flow: true, misc2: true, header: true } },
   export: {
     prefix: 'ds',
     builders: { bricks: true, elementor: true, greenshift: true, divi: true, builderius: true, generic: true },

@@ -627,6 +627,179 @@ function sectionComponents(project) {
     sec.append(g);
   }
 
+  if (c.overlay) {
+    const g = compGroup('Modal · Tooltip · Dropdown');
+    g.insertAdjacentHTML('beforeend', `
+      <div class="comp-row" style="align-items:flex-start;gap:36px;flex-wrap:wrap">
+        <div class="pv-modal-demo" data-modal-demo>
+          <button class="pv-btn pv-btn-primary pv-btn-sm" data-modal-open>모달 열기</button>
+          <div class="pv-modal-backdrop" data-modal-backdrop>
+            <div class="pv-modal">
+              <div class="pv-modal-icon">?</div>
+              <h5>디자인 시스템을 초기화할까요?</h5>
+              <p>모든 조정값이 사라집니다. 계속하기 전에 project.json으로 저장하는 것을 권장합니다.</p>
+              <div class="pv-modal-actions">
+                <button class="pv-btn pv-btn-ghost pv-btn-sm" data-modal-close>취소</button>
+                <button class="pv-btn pv-btn-primary pv-btn-sm" data-modal-close>초기화</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:22px;align-items:flex-start;padding-top:8px">
+          <div class="pv-tooltip-wrap">
+            <button class="pv-btn pv-btn-outline pv-btn-sm">여기에 올려보세요</button>
+            <span class="pv-tooltip">툴팁 — hover 시 표시</span>
+          </div>
+          <div class="pv-dropdown" data-dropdown>
+            <button class="pv-btn pv-btn-secondary pv-btn-sm" data-dd-toggle>내 메뉴 ▾</button>
+            <div class="pv-dropdown-menu">
+              <button class="pv-dropdown-item" type="button"><span class="pv-dropdown-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span>프로필<small>Shift+P</small></button>
+              <button class="pv-dropdown-item" type="button"><span class="pv-dropdown-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.6-2-3.4-2.4 1a7 7 0 0 0-2-1.2L14 3h-4l-.5 2.6a7 7 0 0 0-2 1.2l-2.4-1-2 3.4 2 1.6A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 2 1.2L10 21h4l.5-2.6a7 7 0 0 0 2-1.2l2.4 1 2-3.4-2-1.6c.06-.4.1-.8.1-1.2z"/></svg></span>설정</button>
+              <button class="pv-dropdown-item" type="button"><span class="pv-dropdown-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v12H7l-3 3z"/></svg></span>문의하기</button>
+              <div class="pv-dropdown-sep"></div>
+              <button class="pv-dropdown-item danger" type="button"><span class="pv-dropdown-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5V9l7-6 7 6v12h-4"/><path d="M9 21v-6h6v6"/></svg></span>로그아웃</button>
+            </div>
+          </div>
+        </div>
+      </div>`);
+    sec.append(g);
+  }
+
+  if (c.pricing) {
+    const g = compGroup('Pricing');
+    g.insertAdjacentHTML('beforeend', `
+      <div class="pv-pricing-grid">
+        <div class="pv-price-card">
+          <div class="pv-price-name">스타터</div>
+          <div class="pv-price-amount">₩0</div>
+          <div class="pv-price-period">영구 무료</div>
+          <ul class="pv-price-features">
+            <li><span class="ck">✓</span>토큰 추출 1개 프로젝트</li>
+            <li><span class="ck">✓</span>컴포넌트 미리보기</li>
+            <li><span class="no">✕</span>빌더 내보내기</li>
+            <li><span class="no">✕</span>다크모드 토큰</li>
+          </ul>
+          <button class="pv-btn pv-btn-outline pv-btn-sm" style="width:100%">무료로 시작</button>
+        </div>
+        <div class="pv-price-card is-featured">
+          <div class="pv-price-badge">인기</div>
+          <div class="pv-price-name">프로</div>
+          <div class="pv-price-amount">₩12,000<small>/월</small></div>
+          <div class="pv-price-period">연간 결제 시 20% 할인</div>
+          <ul class="pv-price-features">
+            <li><span class="ck">✓</span>프로젝트 무제한</li>
+            <li><span class="ck">✓</span>빌더 5종 내보내기</li>
+            <li><span class="ck">✓</span>다크모드·반응형 토큰</li>
+            <li><span class="ck">✓</span>GreenShift 직접 적용</li>
+          </ul>
+          <button class="pv-btn pv-btn-primary pv-btn-sm" style="width:100%">프로 시작하기</button>
+        </div>
+        <div class="pv-price-card">
+          <div class="pv-price-name">팀</div>
+          <div class="pv-price-amount">₩39,000<small>/월</small></div>
+          <div class="pv-price-period">좌석 5개 포함</div>
+          <ul class="pv-price-features">
+            <li><span class="ck">✓</span>프로의 모든 기능</li>
+            <li><span class="ck">✓</span>토큰 히스토리·롤백</li>
+            <li><span class="ck">✓</span>팀 워크스페이스</li>
+            <li><span class="ck">✓</span>우선 지원</li>
+          </ul>
+          <button class="pv-btn pv-btn-outline pv-btn-sm" style="width:100%">팀 문의</button>
+        </div>
+      </div>`);
+    sec.append(g);
+  }
+
+  if (c.flow) {
+    const g = compGroup('Stepper · Timeline');
+    g.insertAdjacentHTML('beforeend', `
+      <div class="pv-stepper">
+        <div class="pv-step is-done"><div class="pv-step-dot">✓</div><div class="pv-step-label">템플릿 선택</div><div class="pv-step-sub">완료</div></div>
+        <div class="pv-step is-done"><div class="pv-step-dot">✓</div><div class="pv-step-label">토큰 조정</div><div class="pv-step-sub">완료</div></div>
+        <div class="pv-step is-active"><div class="pv-step-dot">3</div><div class="pv-step-label">미리보기 검수</div><div class="pv-step-sub">진행 중</div></div>
+        <div class="pv-step"><div class="pv-step-dot">4</div><div class="pv-step-label">빌더 내보내기</div><div class="pv-step-sub">대기</div></div>
+      </div>
+      <div class="pv-timeline">
+        <div class="pv-timeline-item">
+          <div class="pv-timeline-dot"></div>
+          <div class="pv-timeline-date">2026.09.28</div>
+          <h6>사이트 디자인 시스템 추출</h6>
+          <p>레퍼런스 사이트에서 컬러·타이포·레이아웃 토큰을 추출했습니다.</p>
+        </div>
+        <div class="pv-timeline-item">
+          <div class="pv-timeline-dot"></div>
+          <div class="pv-timeline-date">2026.10.03</div>
+          <h6>반응형 토큰 확장</h6>
+          <p>태블릿·모바일 폰트 크기와 섹션 여백 토큰이 추가되었습니다.</p>
+        </div>
+        <div class="pv-timeline-item">
+          <div class="pv-timeline-dot"></div>
+          <div class="pv-timeline-date">2026.10.05</div>
+          <h6>컴포넌트 라이브러리 23종</h6>
+          <p>모달·가격표·타임라인 등 실무 위젯이 추가되었습니다.</p>
+        </div>
+        <div class="pv-timeline-item is-muted">
+          <div class="pv-timeline-dot"></div>
+          <div class="pv-timeline-date">예정</div>
+          <h6>빌더 실사이트 검증</h6>
+          <p>Elementor·Divi·Builderius 임포트 검증이 남아 있습니다.</p>
+        </div>
+      </div>`);
+    sec.append(g);
+  }
+
+  if (c.misc2) {
+    const g = compGroup('Social · List Group · Newsletter');
+    g.insertAdjacentHTML('beforeend', `
+      <div class="pv-social-row" style="margin-bottom:20px">
+        <button class="pv-social" type="button" title="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 3h3.1l-6.8 7.8L21.8 21h-6.3l-4.9-6.4L5 21H1.9l7.3-8.3L2.2 3h6.4l4.4 5.9L17.5 3zm-1.1 16.1h1.7L7.7 4.8H5.9l10.5 14.3z"/></svg></button>
+        <button class="pv-social" type="button" title="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.5V6.8c0-.8.2-1.3 1.4-1.3H17V2.6C16.4 2.5 15.4 2.5 14.4 2.5c-2.6 0-4.4 1.6-4.4 4.5v1.5H7v3.4h3V21h4v-9.1h2.8l.4-3.4H14z"/></svg></button>
+        <button class="pv-social" type="button" title="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></button>
+        <button class="pv-social" type="button" title="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.8 1.8c1.6.4 7.8.4 7.8.4s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8zM10 15V9l5.2 3L10 15z"/></svg></button>
+        <button class="pv-social" type="button" title="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0-.02-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.05a4.2 4.2 0 0 1 3.75-2c4 0 4.75 2.6 4.75 6V21h-4v-5.3c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9V21h-4z"/></svg></button>
+        <button class="pv-social is-brand" type="button" title="브랜드색 버튼"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.8l-5.8 3 1.1-6.4L2.6 9.8l6.5-.9z"/></svg></button>
+      </div>
+      <div class="pv-listgroup" style="margin-bottom:22px">
+        <button class="pv-listitem" type="button"><span class="pv-listitem-ico">👤</span><span><span class="pv-listitem-title">계정 설정</span><br><span class="pv-listitem-sub">이메일·비밀번호·알림</span></span><span class="chev">›</span></button>
+        <button class="pv-listitem" type="button"><span class="pv-listitem-ico">🎨</span><span><span class="pv-listitem-title">테마 관리</span><br><span class="pv-listitem-sub">라이트·다크 토큰 세트</span></span><span class="chev">›</span></button>
+        <button class="pv-listitem" type="button"><span class="pv-listitem-ico">📦</span><span><span class="pv-listitem-title">내보내기 기록</span><br><span class="pv-listitem-sub">최근 30일</span></span><span class="chev">›</span></button>
+        <button class="pv-listitem" type="button"><span class="pv-listitem-ico">🔗</span><span><span class="pv-listitem-title">연동된 사이트</span><br><span class="pv-listitem-sub">2개 연결됨</span></span><span class="chev">›</span></button>
+      </div>
+      <div class="pv-newsletter" data-newsletter>
+        <h5>새 토큰 세트가 나오면 알려드릴게요</h5>
+        <p>월 1회, 디자인 시스템 업데이트 소식만 보냅니다.</p>
+        <form class="pv-newsletter-form">
+          <input class="pv-input" type="email" placeholder="name@example.com" required>
+          <button class="pv-btn pv-btn-primary" type="submit">구독</button>
+        </form>
+        <div class="pv-newsletter-note">구독은 언제든 해지할 수 있습니다.</div>
+        <div class="pv-newsletter-ok">✓ 구독해 주셔서 감사합니다! 확인 메일을 보냈습니다.</div>
+      </div>`);
+    sec.append(g);
+  }
+
+  if (c.header) {
+    const g = compGroup('Header Nav');
+    g.insertAdjacentHTML('beforeend', `
+      <div class="pv-header-demo">
+        <div class="pv-header-bar">
+          <div class="pv-header-logo"><span class="pv-header-logo-mark">D</span>DESIGN</div>
+          <nav class="pv-header-nav">
+            <a class="pv-header-link is-active" href="#" onclick="return false">홈</a>
+            <a class="pv-header-link" href="#" onclick="return false">기능</a>
+            <a class="pv-header-link" href="#" onclick="return false">가격</a>
+            <a class="pv-header-link" href="#" onclick="return false">문의</a>
+          </nav>
+          <button class="pv-btn pv-btn-primary pv-btn-sm">시작하기</button>
+        </div>
+        <div class="pv-header-sub">
+          <span>활성 링크는 프라이머리 밑줄 · 호버는 연한 배경 · 로고 마크도 토큰 색</span>
+          <span>max-width: var(--container-width)</span>
+        </div>
+      </div>`);
+    sec.append(g);
+  }
+
   wireInteractions(sec);
   return sec;
 }
@@ -673,6 +846,37 @@ function wireInteractions(sec) {
     }, { root: track, threshold: 0.6 });
     slides.forEach((sl) => io.observe(sl));
   }
+  // 모달 — 열기/닫기(백드롭·버튼)
+  for (const demo of sec.querySelectorAll('[data-modal-demo]')) {
+    const backdrop = demo.querySelector('[data-modal-backdrop]');
+    demo.querySelector('[data-modal-open]')?.addEventListener('click', () => backdrop.classList.add('is-open'));
+    demo.querySelectorAll('[data-modal-close]').forEach((b) => b.addEventListener('click', () => backdrop.classList.remove('is-open')));
+    backdrop.addEventListener('click', (e) => { if (e.target === backdrop) backdrop.classList.remove('is-open'); });
+  }
+  // 드롭다운 — 토글, 항목 클릭 시 닫힘, 섹션 밖 클릭 닫힘은 같은 클릭의 다른 대상에서 처리
+  for (const dd of sec.querySelectorAll('[data-dropdown]')) {
+    dd.querySelector('[data-dd-toggle]')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const was = dd.classList.contains('is-open');
+      closeAllDropdowns(sec);
+      if (!was) dd.classList.add('is-open');
+    });
+    dd.querySelectorAll('.pv-dropdown-item').forEach((it) => it.addEventListener('click', () => closeAllDropdowns(sec)));
+  }
+  sec.addEventListener('click', (e) => {
+    if (!e.target.closest('[data-dropdown]')) closeAllDropdowns(sec);
+  });
+  // 뉴스레터 — 제출 시 완료 상태
+  for (const nl of sec.querySelectorAll('[data-newsletter]')) {
+    nl.querySelector('form')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      nl.classList.add('is-done');
+    });
+  }
+}
+
+function closeAllDropdowns(scope) {
+  scope.querySelectorAll('[data-dropdown].is-open').forEach((d) => d.classList.remove('is-open'));
 }
 
 function compGroup(title) {

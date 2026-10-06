@@ -1,11 +1,14 @@
 // preview.js — 디자인 시스템 미리보기: 토큰 주입 + 에셋 갤러리 렌더
 // 캔버스의 모든 요소는 --p-* 토큰만 사용 (프리뷰 = 출력물 원칙)
 
-import { escapeHtml, contrastRatio, hexToOklch, oklchToHex } from './util.js';
+import { escapeHtml, contrastRatio, hexToOklch, oklchToHex, safeCssValue } from './util.js';
 import { findToken } from './store.js';
 
 const SAMPLE_HEADING = '제목처럼 쓰이는 문장의 샘플';
 const SAMPLE_BODY = '본문처럼 읽히는 문장입니다. 행간과 자간, 글자의 굵기가 실제 문서에서 어떻게 보이는지 확인할 수 있습니다.';
+
+// 인라인 스타일 값 게이트: 안전 검증 후 HTML 이스케이프 (미승인 값은 fallback)
+const cssVal = (v, fb = '') => escapeHtml(safeCssValue(v, fb));
 
 /* ---------- 토큰 → 캔버스 CSS 변수 ---------- */
 
@@ -169,7 +172,7 @@ function sectionColors(project, onCopyColor) {
       btn.className = 'sw';
       btn.title = '클릭하면 hex 코드가 복사됩니다';
       btn.innerHTML = `
-        <div class="sw-chip" style="background:${t.value}"></div>
+        <div class="sw-chip" style="background:${cssVal(t.value, '#888888')}"></div>
         <div class="sw-info">
           <div class="sw-name">${escapeHtml(t.name)}</div>
           <div class="sw-hex">${escapeHtml(t.value.toUpperCase())}${t.dark ? ` · 🌙 ${escapeHtml(t.dark.toUpperCase())}` : ''}</div>
@@ -194,7 +197,7 @@ function sectionTypography(project, viewport) {
     ? ` · 반응형 감지 T≤${bps.tablet || '?'} / M≤${bps.phone || '?'}px`
     : '';
   const vpNote = viewport === 'tablet' ? ' · 태블릿 뷰' : viewport === 'phone' ? ' · 모바일 뷰' : '';
-  const sec = section(project, 'typography', 'Typography', `${fam} · 본문 ${h.body.size}${bpNote}${vpNote}`);
+  const sec = section(project, 'typography', 'Typography', `${escapeHtml(fam)} · 본문 ${escapeHtml(h.body.size)}${bpNote}${vpNote}`);
   for (const item of h.hierarchy) {
     const size = tierValue(item, viewport, 'size');
     const lineHeight = tierValue(item, viewport, 'lineHeight');
@@ -212,10 +215,10 @@ function sectionTypography(project, viewport) {
         ${respChips ? `<div class="type-resp">${respChips}</div>` : ''}
       </div>
       <div class="type-sample" style="
-        font-size:${escapeHtml(size)};
-        font-weight:${escapeHtml(item.weight)};
-        line-height:${escapeHtml(lineHeight)};
-        letter-spacing:${escapeHtml(item.letterSpacing)};
+        font-size:${cssVal(size, '16px')};
+        font-weight:${cssVal(item.weight, '400')};
+        line-height:${cssVal(lineHeight, '1.5')};
+        letter-spacing:${cssVal(item.letterSpacing, '0')};
         ${item.family === 'heading' ? '' : 'font-family:var(--p-font-body);'}
         ${/^(display|h[1-3])$/.test(item.id) ? `color:var(--p-text-strong, inherit)` : ''}
       ">${item.id === 'body' || item.id === 'small' ? SAMPLE_BODY : SAMPLE_HEADING}</div>`;
@@ -234,14 +237,15 @@ function sectionFonts(project) {
   const grid = document.createElement('div');
   grid.className = 'font-cards';
   for (const f of project.fonts) {
-    const stack = `"${f.family.replace(/"/g, '')}", -apple-system, system-ui, sans-serif`;
+    const stack = `"${f.family.replace(/["'\\;,()]/g, '')}", -apple-system, system-ui, sans-serif`;
+    const stackCss = cssVal(stack, 'system-ui');
     grid.insertAdjacentHTML('beforeend', `
       <div class="font-card">
-        <div class="font-card-aa" style="font-family:${stack.replace(/"/g, '&quot;')}">Aa 가</div>
+        <div class="font-card-aa" style="font-family:${stackCss}">Aa 가</div>
         <div class="font-card-name">${escapeHtml(f.family)}</div>
         <div class="font-card-meta">${f.source === 'google' ? '웹폰트 CDN' : '시스템 폰트'}</div>
-        <div class="font-weights" style="font-family:${stack.replace(/"/g, '&quot;')}">
-          ${(f.weights || []).map((w) => `<span style="font-weight:${w}" title="${w}">${w}</span>`).join('')}
+        <div class="font-weights" style="font-family:${stackCss}">
+          ${(f.weights || []).map((w) => `<span style="font-weight:${Number(w) || 400}" title="${Number(w) || 400}">${escapeHtml(String(w))}</span>`).join('')}
         </div>
       </div>`);
   }
@@ -286,7 +290,7 @@ function sectionSpacing(project) {
       <span class="dim-id">container-width</span>
       <span style="flex:1">
         <span class="layout-canvas-frame" style="display:block">
-          <span class="layout-container-bar" style="width:min(88%, calc((${escapeHtml(cw)} / 1600px) * 100%))"></span>
+          <span class="layout-container-bar" style="width:min(88%, calc((${cssVal(cw, '1200px')} / 1600px) * 100%))"></span>
           <span class="layout-container-label">${escapeHtml(cw)}</span>
         </span>
       </span>
@@ -309,7 +313,7 @@ function sectionSpacing(project) {
       <span style="flex:1">
         <span class="layout-gap-demo" style="display:flex">
           <span class="layout-gap-cell" style="display:flex;flex:1">위젯 A</span>
-          <span style="width:${escapeHtml(wGap)};display:flex;align-items:center;justify-content:center"><span style="font-size:10px;font-family:var(--dsg-mono);color:var(--p-primary,#4c8dff);font-weight:700">${escapeHtml(wGap)}</span></span>
+          <span style="width:${cssVal(wGap, '24px')};display:flex;align-items:center;justify-content:center"><span style="font-size:10px;font-family:var(--dsg-mono);color:var(--p-primary,#4c8dff);font-weight:700">${escapeHtml(wGap)}</span></span>
           <span class="layout-gap-cell" style="display:flex;flex:1">위젯 B</span>
         </span>
         <span class="layout-viz-meta">--widget-gap: ${escapeHtml(wGap)} (위젯 사이) · --stack-gap: ${escapeHtml(sGap)} (위젯 내부 요소 사이)</span>
@@ -323,7 +327,7 @@ function sectionSpacing(project) {
   rGrid.className = 'radius-grid';
   for (const d of project.radius) {
     rGrid.insertAdjacentHTML('beforeend', `
-      <div class="radius-box" style="border-radius:${escapeHtml(d.value)}">${escapeHtml(d.id)}</div>`);
+      <div class="radius-box" style="border-radius:${cssVal(d.value, '0')}">${escapeHtml(d.id)}</div>`);
   }
   sec.append(rGrid);
 
@@ -332,7 +336,7 @@ function sectionSpacing(project) {
   sGrid.className = 'shadow-grid';
   for (const d of project.shadows) {
     sGrid.insertAdjacentHTML('beforeend', `
-      <div class="shadow-card" style="box-shadow:${escapeHtml(d.value)}">${escapeHtml(d.id)}</div>`);
+      <div class="shadow-card" style="box-shadow:${cssVal(d.value, 'none')}">${escapeHtml(d.id)}</div>`);
   }
   sec.append(sGrid);
   return sec;

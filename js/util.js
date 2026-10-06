@@ -215,3 +215,25 @@ export function pxToNumber(v) {
   if (m[2] === 'rem' || m[2] === 'em') return Math.round(n * 16);
   return Math.round(n);
 }
+
+/* --- 인라인 스타일/CSS 값 안전성 검증 (CSS 인젝션 방지) --- */
+
+const SAFE_CSS_VALUE_RE = /^[a-zA-Z0-9 \t#%(),./:+*_&"'-]*$/;
+
+// 사용자/사이트에서 온 임의 문자열을 style="..." 안에 넣어도 되는지 검사.
+// 따옴표 균형까지 확인해 ";url(...)" 등 탈출 시도를 차단한다.
+export function isSafeCssValue(v) {
+  const s = String(v ?? '');
+  if (!s || s.length > 200) return false;
+  if (!SAFE_CSS_VALUE_RE.test(s)) return false;
+  for (const q of ['"', "'"]) {
+    const count = (s.match(new RegExp(q, 'g')) || []).length;
+    if (count % 2 !== 0) return false;
+  }
+  return true;
+}
+
+// 안전하면 그대로, 아니면 fallback 반환 (렌더·내보내기 공용 게이트)
+export function safeCssValue(v, fallback = '') {
+  return isSafeCssValue(v) ? String(v) : fallback;
+}

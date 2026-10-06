@@ -189,13 +189,14 @@ export class Store {
   update(mutator, opts = {}) {
     mutator(this.project);
     this.persist();
-    this.emit('project', { section: opts.section || null });
+    // tag를 반드시 전달 — app.js가 'adjust-value' 태그로 조정 패널 재렌더(포커스 손실)를 막는다
+    this.emit('project', { section: opts.section || null, tag: opts.tag || null });
   }
 
   replace(project) {
     this.project = normalizeProject(project);
     this.persist();
-    this.emit('project', { section: null, replaced: true });
+    this.emit('project', { section: null, tag: null, replaced: true });
   }
 
   persist() {
